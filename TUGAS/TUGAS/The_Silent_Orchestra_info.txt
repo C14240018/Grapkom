@@ -1,0 +1,19 @@
+Model=
+    Top: 
+        2 ellipsoid of the head
+        1 cylinder for the neck
+        1 cone for the nose
+        2 curve for the hair
+        2 curve for the lips
+        3 ellipsoid & 3 curves with sheet connecting to the curves for the neck collar on each side
+    Middle: 
+        1 elliptic parabolic for the black part
+        1 elliptic parabolic for the white part
+        2 elliptic parabolic for the back accessory
+        1 sheet hyperboloid extends the coat botom
+        2 ellipsoid for the button
+        2 curve dark sleeve-like marks complete the chest
+        Multiple curves for the ties
+    Bottom:
+        1 white cylinder
+        2 black cylinder that stack on top of each other
