@@ -87,6 +87,7 @@ export class SilentOrchestra extends OrchestraPart {
         LIBS.set_I4(this.top.MOVE_MATRIX);
         LIBS.set_I4(this.MOVE_MATRIX);
         LIBS.set_I4(this.accessory.MOVE_MATRIX);
+        LIBS.translateY(this.accessory.MOVE_MATRIX, 0.25 * Math.sin(elapsed * 0.002));
         const orbitProgress = (elapsed % this.accessoryOrbitDuration) / this.accessoryOrbitDuration;
         LIBS.rotateY(this.accessory.MOVE_MATRIX, orbitProgress * Math.PI * 2);
 
