@@ -1,20 +1,4 @@
-import { Gito_Body, legs, keyhole, Room, Skull, Blood, holloweye } from "./Body.js";
-import { eyes } from "./eyes.js";
-import {eyes1} from "./eyes.js";
-import {eyes3} from "./eyes.js";
-import {eyes4} from "./eyes.js";
-import { flesh } from "./Body.js";
-import { HyperJoints } from "./HyperJoints.js";
-import { Drills, MiniDrills } from "./Drill.js";
-import { Keyhole1 } from "./eyes.js";
-import { Cornea, Iris } from "./ActualEyes.js";
-import { Saw } from "./buzzsaw.js";
-import { Arteries, Veins } from "./CurvedDetails.js";
-import { Ellipsoid } from "./Elipsoid.js";
-import { EllipticParaboloid } from "./EllipticParaboloid.js";
-import { Cone } from "./Cone.js";
-import { Curve } from "./curve.js";
-import { createBirdTextures } from "./projectPunishingBird/projecte/birdTexture.js";
+import { Room, Skull, Blood, holloweye } from "./Body.js";
 import { SilentOrchestra } from "./SilentOrchestra.js";
 
 

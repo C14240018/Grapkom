@@ -1,6 +1,7 @@
 import { createBottom } from "./TUGAS/TUGAS/Bottom.js";
 import { createMiddle } from "./TUGAS/TUGAS/Middle.js";
 import { createTop } from "./TUGAS/TUGAS/Top.js";
+import { createAccessory } from "./TUGAS/TUGAS/Accessory.js";
 import { createLitVertices } from "./TUGAS/TUGAS/PartGeometry.js";
 
 class OrchestraPart {
@@ -60,16 +61,18 @@ class OrchestraPart {
 export class SilentOrchestra extends OrchestraPart {
     animationStart = null;
     scaleDuration = 1000;
-    nodDuration = 600;
     rotateDuration = 1000;
     moveDuration = 1000;
+    accessoryOrbitDuration = 3000;
 
     constructor(GL, SHADER_PROGRAM, _position, _color, _Mmatrix) {
         super(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createMiddle());
 
         this.top = new OrchestraPart(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createTop());
+        this.accessory = new OrchestraPart(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createAccessory());
         this.bottom = new OrchestraPart(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createBottom());
         LIBS.rotateY(this.top.POSITION_MATRIX, Math.PI);
+        this.top.childs = [this.accessory];
         this.childs = [this.top, this.bottom];
     }
 
@@ -78,13 +81,14 @@ export class SilentOrchestra extends OrchestraPart {
         const elapsed = time - this.animationStart;
         const scaleUpEnd = this.scaleDuration;
         const scaleBackEnd = scaleUpEnd + this.scaleDuration;
-        const nodEnd = scaleBackEnd + this.nodDuration;
-        const rotateEnd = nodEnd + this.rotateDuration;
-        const nodReturnEnd = rotateEnd + this.nodDuration;
-        const moveEnd = nodReturnEnd + this.moveDuration;
+        const rotateEnd = scaleBackEnd + this.rotateDuration;
+        const moveEnd = rotateEnd + this.moveDuration;
 
         LIBS.set_I4(this.top.MOVE_MATRIX);
         LIBS.set_I4(this.MOVE_MATRIX);
+        LIBS.set_I4(this.accessory.MOVE_MATRIX);
+        const orbitProgress = (elapsed % this.accessoryOrbitDuration) / this.accessoryOrbitDuration;
+        LIBS.rotateY(this.accessory.MOVE_MATRIX, orbitProgress * Math.PI * 2);
 
         if (elapsed < scaleUpEnd) {
             const progress = elapsed / this.scaleDuration;
@@ -92,23 +96,13 @@ export class SilentOrchestra extends OrchestraPart {
         } else if (elapsed < scaleBackEnd) {
             const progress = (elapsed - scaleUpEnd) / this.scaleDuration;
             LIBS.scaleY(this.top.MOVE_MATRIX, 1.5 - 0.5 * progress);
-        } else if (elapsed < nodEnd) {
-            const progress = (elapsed - scaleBackEnd) / this.nodDuration;
-            LIBS.rotateZ(this.top.MOVE_MATRIX, (Math.PI / 12) * progress);
         } else if (elapsed < rotateEnd) {
-            const progress = (elapsed - nodEnd) / this.rotateDuration;
-            LIBS.rotateZ(this.top.MOVE_MATRIX, Math.PI / 12);
+            const progress = (elapsed - scaleBackEnd) / this.rotateDuration;
             LIBS.rotateY(this.top.MOVE_MATRIX, (Math.PI / 2) * progress);
-        } else if (elapsed < nodReturnEnd) {
-            const progress = (elapsed - rotateEnd) / this.nodDuration;
-            LIBS.rotateZ(this.top.MOVE_MATRIX, (Math.PI / 12) * (1 - progress));
-            LIBS.rotateY(this.top.MOVE_MATRIX, Math.PI / 2);
         } else if (elapsed < moveEnd) {
-            LIBS.rotateZ(this.top.MOVE_MATRIX, 0);
             LIBS.rotateY(this.top.MOVE_MATRIX, Math.PI / 2);
-            LIBS.translateZ(this.MOVE_MATRIX, -2 * ((elapsed - nodReturnEnd) / this.moveDuration));
+            LIBS.translateZ(this.MOVE_MATRIX, -2 * ((elapsed - rotateEnd) / this.moveDuration));
         } else {
-            LIBS.rotateZ(this.top.MOVE_MATRIX, 0);
             LIBS.rotateY(this.top.MOVE_MATRIX, Math.PI / 2);
             LIBS.translateZ(this.MOVE_MATRIX, -2);
         }

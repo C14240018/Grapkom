@@ -10,13 +10,6 @@ import { Keyhole1 } from "./eyes.js";
 import { Cornea, Iris } from "./ActualEyes.js";
 import { Saw } from "./buzzsaw.js";
 import { Arteries, Veins } from "./CurvedDetails.js";
-import { Ellipsoid } from "./Elipsoid.js";
-import { EllipticParaboloid } from "./EllipticParaboloid.js";
-import { Cone } from "./Cone.js";
-import { Curve } from "./curve.js";
-import { createBirdTextures } from "./projectPunishingBird/projecte/birdTexture.js";
-import { SilentOrchestra } from "./SilentOrchestra.js";
-
 
 function main() {
     /** @type {HTMLCanvasElement} */

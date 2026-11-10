@@ -17,3 +17,5 @@ Model=
     Bottom:
         1 white cylinder
         2 black cylinder that stack on top of each other
+    accessory:
+        a bunch of note made from ellipsoid and curve

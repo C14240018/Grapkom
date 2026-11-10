@@ -1,6 +1,7 @@
 import { createBottom } from "./Bottom.js";
 import { createMiddle } from "./Middle.js";
 import { createTop } from "./Top.js";
+import { createAccessory } from "./Accessory.js";
 import { MyObject } from "./MyObject.js";
 import { Room } from "./Room.js";
 
@@ -117,7 +118,8 @@ function main() {
     var room = new Room([
         new MyObject(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createBottom()),
         new MyObject(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createMiddle()),
-        new MyObject(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createTop())
+        new MyObject(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createTop()),
+        new MyObject(GL, SHADER_PROGRAM, _position, _color, _Mmatrix, createAccessory())
     ]);
     room.setup();
 
